@@ -1,10 +1,10 @@
 package pl.rzonsol.springboot.rest.webservice.example.services;
 
 
+import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import pl.rzonsol.springboot.rest.webservice.example.entity.User;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,18 +25,18 @@ public class UserService {
         users.add(new User(6, "Name 6", new Date()));
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return users;
     }
 
-    public User findOne(@NotNull Integer id){
+    public User findOne(@NonNull Integer id) {
         return users.stream()
-                .filter(u-> id.equals(u.getId()))
+                .filter(u -> id.equals(u.getId()))
                 .findAny()
                 .orElse(null);
     }
 
-    public User save(@NotNull User user){
+    public User save(@NonNull User user) {
         user.setId(++counter);
         users.add(user);
         return user;
