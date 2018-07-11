@@ -43,12 +43,13 @@ public class PostService {
         return posts;
     }
 
-    public Optional<Post> findOne(Integer id) {
-        if (id == null)
+    public Optional<Post> findOne(Integer userId, Integer postId) {
+        if (postId == null || userId == null)
             return Optional.empty();
 
         return posts.stream()
-                .filter(i -> id.equals(i.getId()))
+                .filter(i -> postId.equals(i.getId()))
+                .filter(u-> Optional.of(u.getUser()).map(User::getId).map(i->i.equals(userId)).orElse(false))
                 .findAny();
     }
 
