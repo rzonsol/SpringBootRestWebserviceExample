@@ -34,6 +34,11 @@ public class UserResource {
                 );
     }
 
+    @DeleteMapping(path = "/users/{id}")
+    public void deleteUserById(@PathVariable(name = "id") Integer id) {
+        userService.deleteById(id);
+    }
+
     @PostMapping(path = "/users")
     public ResponseEntity addUser(@RequestBody User user) {
 

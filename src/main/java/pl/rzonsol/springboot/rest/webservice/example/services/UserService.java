@@ -4,6 +4,7 @@ package pl.rzonsol.springboot.rest.webservice.example.services;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import pl.rzonsol.springboot.rest.webservice.example.entity.User;
+import pl.rzonsol.springboot.rest.webservice.example.exception.UserNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,17 @@ public class UserService {
                 .filter(u -> id.equals(u.getId()))
                 .findAny()
                 .orElse(null);
+    }
+
+    public void deleteById(Integer userId) throws UserNotFoundException {
+        if(userId==null)
+            throw new UserNotFoundException("There is no user with id: " + userId);
+        User user = findOne(userId);
+        if (user!=null){
+            users.remove(user);
+        }else{
+            throw new UserNotFoundException("There is no user with id: " + userId);
+        }
     }
 
     public User save(@NonNull User user) {
