@@ -8,6 +8,7 @@ import pl.rzonsol.springboot.rest.webservice.example.entity.User;
 import pl.rzonsol.springboot.rest.webservice.example.exception.UserNotFoundException;
 import pl.rzonsol.springboot.rest.webservice.example.services.UserService;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class UserResource {
     }
 
     @PostMapping(path = "/users")
-    public ResponseEntity addUser(@RequestBody User user) {
+    public ResponseEntity addUser(@Valid @RequestBody User user) {
 
         Optional.ofNullable(user).ifPresent(userService::save);
 
